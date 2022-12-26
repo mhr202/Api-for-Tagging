@@ -1,0 +1,23 @@
+default: &default
+  adapter:  postgresql
+  host:     <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  port:     <%= ENV['POSTGRES_PORT'] || 5432 %>
+  pool:     <%= ENV['POSTGRES_POOL'] || 5 %>
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USERNAME'] || 'postgres' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'postgres' %>
+  sslmode: disable
+
+development:
+  <<: *default
+  database: tagging_api_development
+
+test:
+  <<: *default
+  database: tagging_api_test
+
+production:
+  <<: *default
+  database: tagging_api_production
+  username: tagging_api
+  password: <%= ENV['TAGGING_API_DATABASE_PASSWORD'] %>
